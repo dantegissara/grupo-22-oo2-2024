@@ -1,0 +1,13 @@
+spring:
+ application:
+   name: grupo-22-oo2-2024
+ datasource:
+   password: ${DB_PASSWORD:admin}
+   url: jdbc:mysql://localhost:3306/oo2-tpc
+   username: ${DB_USERNAME:root}
+   driverClassName: com.mysql.cj.jdbc.Driver
+ jpa:
+  hibernate:
+    ddl-auto: update
+  database-platform: org.hibernate.dialect.MySQLDialect
+    
