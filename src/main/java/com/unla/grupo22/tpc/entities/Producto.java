@@ -1,9 +1,10 @@
 package com.unla.grupo22.tpc.entities;
 
-
+import com.unla.grupo22.tpc.entities.StockProducto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class Producto {
 	
 	private int precioDeVenta;
 	
-	@OneToOne(mappedBy = "producto", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "producto", cascade = CascadeType.ALL)
     private StockProducto stockProducto;
 
 	public Producto(String codigo, String nombre, String descripcion, int costo, int precioDeVenta,
