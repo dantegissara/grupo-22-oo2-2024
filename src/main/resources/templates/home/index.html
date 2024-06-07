@@ -84,11 +84,11 @@
 	</header>
 	<!-- Page Content -->
 	<div class="container">
-		<h1 class="my-2">Vistas de productos</h1>
+		<h1 class="my-2">Catalogo de productos</h1>
 		<select class="my-4" id="select-producto">  		<!-- Select permite generar un desplegable con opciones -->
 			<option>...</option> 			<!-- Opcion vacia -->
 			<option th:each="producto : ${productos}" th:value="${producto.id}"> 
-				<h1 class="my-2">Codigo : </h1>			<!-- for each sobre la lista de personas ( linea 32 Home Controller) -->
+				<h1 class="my-2">Codigo : </h1>			<!-- for each sobre la lista de productos ( linea 32 Home Controller) -->
 				<p th:text="${producto.codigo}"/>
 				<h1 class="my-2">Nombre : </h1>
 				<p th:text="${producto.nombre}"/>
@@ -97,7 +97,11 @@
 				<h1 class="my-2">Costo : </h1>
 				<p th:text="${producto.costo}"/>
 				<h1 class="my-2">Precio De Venta : </h1>
-				<p th:text="${producto.precioDeVenta}"/>	
+				<p th:text="${producto.precioDeVenta}"/>
+				<h1 class="my-2">Stock : </h1>
+				<p th:text="${producto.stockProducto.cantidad}"/>	
+				<h1 class="my-2">Minimo Stock : </h1>
+				<p th:text="${producto.stockProducto.minimoStock}"/>		
 			</option>
 		</select>
 		<div id="div-select-producto" class="row"></div>

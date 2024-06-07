@@ -1,45 +1,62 @@
-<!--<table border="1px">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Ver</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="producto : ${productos}">
-            <td><span th:text="${producto.nombre}" /></td>
-            <td>
-                <a th:href="@{/producto/{id}(id=${producto.id})}">Ver</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<a href="/producto/new">Crear nuevo producto</a> HASTA ACA FUNCIONA-->
+	<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Lista de Productos</title>
+	    <link rel="stylesheet" th:href="@{/css2/styles.css}">
+	</head>
+	<body>
+	    <header>
+	        
+	    </header>
+	
+	    <main>
+	        <h1>Lista de Productos</h1>
+	        <table border="1px">
+	            <thead>
+	                <tr>
+	                    <th>Codigo</th>
+	                    <th>Nombre</th>
+	                    <th>Descripcion</th>
+	                    <th>Costo</th>
+	                    <th>Precio de venta</th>
+	                    <th>Stock</th>
+	                    <th>Minimo Stock</th>
+	                    <th>Acciones</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="producto : ${productos}">
+	                    <td><span th:text="${producto.codigo}" /></td>
+	                    <td><span th:text="${producto.nombre}" /></td>
+	                    <td><span th:text="${producto.descripcion}" /></td>
+	                    <td><span th:text="${producto.costo}" /></td>
+	                    <td><span th:text="${producto.precioDeVenta}" /></td>
+	                    <td><span th:text="${producto.stockProducto.cantidad}" /></td>
+	                    <td><span th:text="${producto.stockProducto.minimoStock}" /></td>
+	                    <td>
+	                        <a th:href="@{/producto/{id}(id=${producto.id})}">Editar/Borrar</a>
+	                    </td>
+	                </tr>
+	            </tbody>
+	        </table>
+	        <a href="/producto/new">Crear nuevo producto</a>
+	    </main>
+	
+	    <footer>
+	       
+	    </footer>
+	
+	    <script th:src="@{/js2/scripts.js}"></script>
+	</body>
+	</html>
 
-<table border="1px">
-    <thead>
-        <tr>
-			<th>Codigo</th>
-            <th>Nombre</th>
-			<th>Descripcion</th>
-			<th>Costo</th>
-			<th>Precio de venta</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="producto : ${productos}">
-			<td><span th:text="${producto.codigo}" /></td>
-            <td><span th:text="${producto.nombre}" /></td>
-			<td><span th:text="${producto.descripcion}" /></td>
-			<td><span th:text="${producto.costo}" /></td>
-			<td><span th:text="${producto.precioDeVenta}" /></td>
-            <td>
-                <a th:href="@{/producto/{id}(id=${producto.id})}">Editar/Borrar</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<a href="/producto/new">Crear nuevo producto</a> 
+
+
+
+
+
+
 
 
 
