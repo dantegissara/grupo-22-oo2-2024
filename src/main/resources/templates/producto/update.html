@@ -1,0 +1,36 @@
+<!--<form action="#" th:action="@{/producto/update}" th:object="${producto}"  
+	method="post">
+	<input type="hidden" th:field="*{id}" /> 	
+	</p>
+	<p>
+		Nombre: <input type="text" th:field="*{nombre}" />
+	</p>
+	<input type="submit" value="Edit" />
+</form>
+<form action="#" th:action="@{/producto/delete/{id}(id=${producto.id})}" method="post">
+	<input type="submit" value="delete producto" />
+</form> HASTA ACA FUNCIONA-->
+
+<form action="#" th:action="@{/producto/update}" th:object="${producto}" method="post">
+    <input type="hidden" th:field="*{id}" /> 	
+    <p>
+        Codigo: <input type="text" th:field="*{codigo}" />
+    </p>
+    <p>
+        Nombre: <input type="text" th:field="*{nombre}" />
+    </p>
+    <p>
+        Descripcion: <input type="text" th:field="*{descripcion}" />
+    </p>
+    <p>
+        Costo: <input type="text" th:field="*{costo}" />
+    </p>
+    <p>
+        Precio De Venta: <input type="text" th:field="*{precioDeVenta}" />
+    </p>
+    <input type="submit" value="Editar Producto" />
+</form>
+
+<form action="#" th:action="@{/producto/delete/{id}(id=${producto.id})}" method="post">
+    <input type="submit" value="Borrar Producto" />
+</form>

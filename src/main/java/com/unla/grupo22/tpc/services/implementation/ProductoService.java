@@ -3,10 +3,7 @@ package com.unla.grupo22.tpc.services.implementation;
 import java.util.List;
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.unla.grupo22.tpc.entities.Producto;
 import com.unla.grupo22.tpc.repositories.IProductoRepository;
@@ -18,7 +15,7 @@ public class ProductoService implements IProductoService{
 	//@Autowired ?
     private IProductoRepository productoRepository;
     
-	private ModelMapper modelMapper = new ModelMapper();
+	//private ModelMapper modelMapper = new ModelMapper();
 
 	public ProductoService(IProductoRepository productoRepository) {
 		this.productoRepository = productoRepository;
