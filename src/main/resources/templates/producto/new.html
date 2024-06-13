@@ -1,0 +1,15 @@
+
+
+<form action="#" th:action="@{/producto/create}" th:object="${producto}" method="post">
+        <p>Codigo: <input type="text" th:field="*{codigo}" /></p>
+        <p>Nombre: <input type="text" th:field="*{nombre}" /></p>
+        <p>Descripcion: <input type="text" th:field="*{descripcion}" /></p>
+        <p>Costo: <input type="text" th:field="*{costo}" /></p>
+        <p>Precio De Venta: <input type="text" th:field="*{precioDeVenta}" /></p>
+        <p>Stock: <input type="text" th:field="*{stockProducto.cantidad}" /></p>
+        <p>Minimo Stock: <input type="text" th:field="*{stockProducto.minimoStock}" /></p>
+        <input type="submit" value="Crear Nuevo Producto"/>
+    </form>
+
+
+

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.unla.grupo22.tpc.entities.Producto;
 
 @Repository("productoRepository")
-public interface IProductoRepository extends JpaRepository<Producto, Serializable> { // En lugar de Integer colocar Serializable ?
+public interface IProductoRepository extends JpaRepository<Producto, Integer> { // En lugar de Integer colocar Serializable ?
 	
 // find by name ?
 // find by ... ?
