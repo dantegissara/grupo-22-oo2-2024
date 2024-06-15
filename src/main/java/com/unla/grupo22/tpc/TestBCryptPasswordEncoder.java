@@ -6,6 +6,6 @@ public class TestBCryptPasswordEncoder {
 
 	public static void main(String[] args) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		System.out.println(pe.encode("administrador"));
+		System.out.println(pe.encode("user2"));
 	}
 }
