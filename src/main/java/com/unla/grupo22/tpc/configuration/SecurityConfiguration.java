@@ -21,54 +21,53 @@ import com.unla.grupo22.tpc.services.implementation.UserService;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-	private final UserService userService;
+    private final UserService userService;
 
-	public SecurityConfiguration(UserService userService) {
-		this.userService = userService;
-	}
+    public SecurityConfiguration(UserService userService) {
+        this.userService = userService;
+    }
 
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		return http
-				.csrf(AbstractHttpConfigurer::disable)
-				.cors(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
-							"/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**").permitAll();
-					auth.anyRequest().authenticated();
-				})
-				.formLogin(login -> {
-					login.loginPage("/login");
-					login.loginProcessingUrl("/loginprocess");
-					login.usernameParameter("username");
-					login.passwordParameter("password");
-					login.defaultSuccessUrl("/loginsuccess");
-					login.permitAll();
-				})
-				.logout(logout -> {
-					logout.logoutUrl("/logout");
-					logout.logoutSuccessUrl("/login");
-					logout.permitAll();
-				})
-				.build();
-	}
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
+                            "/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**", "/stock/alta").permitAll();
+                    auth.anyRequest().authenticated();
+                })
+                .formLogin(login -> {
+                    login.loginPage("/login");
+                    login.loginProcessingUrl("/loginprocess");
+                    login.usernameParameter("username");
+                    login.passwordParameter("password");
+                    login.defaultSuccessUrl("/loginsuccess");
+                    login.permitAll();
+                })
+                .logout(logout -> {
+                    logout.logoutUrl("/logout");
+                    logout.logoutSuccessUrl("/login");
+                    logout.permitAll();
+                })
+                .build();
+    }
 
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
-	@Bean
-	AuthenticationProvider authenticationProvider(){
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setPasswordEncoder(passwordEncoder());
-		provider.setUserDetailsService(userService);
-		return provider;
-	}
+    @Bean
+    AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(userService);
+        return provider;
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 }
-

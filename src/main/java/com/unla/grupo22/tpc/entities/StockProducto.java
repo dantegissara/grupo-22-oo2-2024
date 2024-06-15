@@ -29,7 +29,6 @@ public class StockProducto {
 	private int minimoStock;
 
 	public StockProducto(Producto producto, int cantidad, int minimoStock) {
-		super();
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.minimoStock = minimoStock;

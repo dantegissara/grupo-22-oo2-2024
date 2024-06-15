@@ -19,29 +19,34 @@ import com.unla.grupo22.tpc.repositories.IUserRepository;
 @Service("userService")
 public class UserService implements UserDetailsService {
 
-	private IUserRepository userRepository;
+    private IUserRepository userRepository;
 
-	public UserService(IUserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+    public UserService(IUserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.unla.grupo22.tpc.entities.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
-		return buildUser(user, buildGrantedAuthorities(user.getUserRoles()));
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        com.unla.grupo22.tpc.entities.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+        
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
+        }
 
-	private User buildUser(com.unla.grupo22.tpc.entities.User user, List<GrantedAuthority> grantedAuthorities) {
-		return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
-						true, true, true, //accountNonExpired, credentialsNonExpired, accountNonLocked,
-						grantedAuthorities);
-	}
+        return buildUser(user, buildGrantedAuthorities(user.getUserRoles()));
+    }
 
-	private List<GrantedAuthority> buildGrantedAuthorities(Set<UserRole> userRoles) {
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		for(UserRole userRole: userRoles) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getRole()));
-		}
-		return new ArrayList<>(grantedAuthorities);
-	}
+    private User buildUser(com.unla.grupo22.tpc.entities.User user, List<GrantedAuthority> grantedAuthorities) {
+        return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
+                        true, true, true, // accountNonExpired, credentialsNonExpired, accountNonLocked
+                        grantedAuthorities);
+    }
+
+    private List<GrantedAuthority> buildGrantedAuthorities(Set<UserRole> userRoles) {
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (UserRole userRole : userRoles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+        }
+        return new ArrayList<>(grantedAuthorities);
+    }
 }
