@@ -19,7 +19,7 @@ public class StockProductoImpl implements IStockProductoService {
     
     @Override
     public Optional<StockProducto> findByProducto(Producto producto) {
-    	return Optional.ofNullable(stockProductoRepository.findByProducto(producto));
+    	return stockProductoRepository.findByProducto(producto);
     }
 
     @Override
