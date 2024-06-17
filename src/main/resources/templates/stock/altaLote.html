@@ -7,6 +7,33 @@
     <link href="/css/modern-business.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index">INICIO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}" /></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                            <div class="dropdown-divider"></div>
+                            <form th:action="@{/logout}" method="post">
+                                <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
+                            </form>
+                            <a class="dropdown-item" href="/producto">CRUD Producto</a>
+							<a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+							<a class="dropdown-item" href="/compras/nueva">Comprar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
     <div class="container mt-5">
         <h1>Alta Nuevo Lote</h1>
         <div th:if="${error}" class="alert alert-danger" role="alert">
@@ -37,9 +64,9 @@
                 <input type="number" id="precioDeCompra" name="precioDeCompra" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
-            <a href="/index" class="btn btn-secondary">Volver</a>
         </form>
     </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
