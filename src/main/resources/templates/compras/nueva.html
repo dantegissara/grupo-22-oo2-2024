@@ -18,16 +18,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+                            <a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+                            <a class="dropdown-item" href="/producto">CRUD Producto</a>
+                        </div>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}"></span></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                            <div class="dropdown-divider"></div>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User <span th:text="${username}"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownUser">
+							<a class="dropdown-item" href="/compras/nueva">Comprar</a>
                             <form th:action="@{/logout}" method="post">
                                 <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
                             </form>
-                            <a class="dropdown-item" href="/producto">CRUD Producto</a>
-							<a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
-							<a class="dropdown-item" href="/compras/nueva">Comprar</a>
+							
                         </div>
                     </li>
                 </ul>
@@ -49,7 +54,7 @@
             <p th:text="${error}"></p>
         </div>
 
-        <form th:action="@{/compras/realizar}" method="post">
+        <form action="/compras/realizar" method="post">
             <div class="form-group">
                 <label for="userId">User ID:</label>
                 <input type="number" class="form-control" id="userId" name="userId" required>
@@ -58,11 +63,9 @@
                 <label>Productos:</label>
                 <div th:each="producto : ${productos}">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" th:id="'producto' + ${producto.id}" th:name="'productosIds'" th:value="${producto.id}">
-                        <label class="form-check-label" th:for="'producto' + ${producto.id}">
-                            <span th:text="${producto.nombre}"></span> - <span th:text="${producto.costo}"></span> ARS c/u
-                        </label>
-                        <input type="number" class="form-control mt-1" th:name="'cantidades'" placeholder="Cantidad" min="1">
+                        <input class="form-check-input" type="checkbox" id="producto${producto.id}" name="productosIds" th:value="${producto.id}">
+                        <label class="form-check-label" th:for="'producto' + ${producto.id}" th:text="${producto.nombre}"></label>
+                        <input type="number" class="form-control mt-1" name="cantidades" placeholder="Cantidad" min="1">
                     </div>
                 </div>
             </div>
