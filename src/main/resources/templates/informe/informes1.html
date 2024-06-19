@@ -5,6 +5,7 @@
     <title>Informe de Stock</title>
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
 	<style>
 		body {
 			display: flex;
@@ -16,6 +17,7 @@
 			margin-top: auto;
 		}
 	</style>
+
 </head>
 <body>
     <!-- Navigation -->
@@ -27,6 +29,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
+
 					<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">Admin</a>
@@ -51,13 +54,16 @@
 							</form>
 						</div>
 					</li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Page Content -->
+
     <div class="container" style="margin-top: 80px;"> <!-- Agregamos mt-5 aquí -->
+
         <h1 class="my-4">Informe de Stock de Productos</h1>
 
         <table class="table table-striped">
@@ -85,12 +91,14 @@
             </tbody>
         </table>
     </div>
+
 	
 	<footer class="py-5 bg-dark">
 		<div class="container">
 			<p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
 		</div>
 	</footer>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
