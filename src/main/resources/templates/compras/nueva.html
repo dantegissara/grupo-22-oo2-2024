@@ -7,6 +7,17 @@
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="/css/modern-business.css" rel="stylesheet" />
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+	
+		footer {
+			margin-top: auto;
+		}
+	</style>
 </head>
 <body>
     <!-- Navigation -->
@@ -28,11 +39,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User <span th:text="${username}"></span></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownUser">
-							<a class="dropdown-item" href="/compras/nueva">Comprar</a>
+                            <a class="dropdown-item" href="/compras/nueva">Comprar</a>
                             <form th:action="@{/logout}" method="post">
                                 <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
                             </form>
-							
                         </div>
                     </li>
                 </ul>
@@ -64,7 +74,9 @@
                 <div th:each="producto : ${productos}">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="producto${producto.id}" name="productosIds" th:value="${producto.id}">
-                        <label class="form-check-label" th:for="'producto' + ${producto.id}" th:text="${producto.nombre}"></label>
+                        <label class="form-check-label" th:for="'producto' + ${producto.id}">
+                            <span th:text="${producto.nombre}"></span> - <span th:text="${producto.costo}"></span> ARS c/u
+                        </label>
                         <input type="number" class="form-control mt-1" name="cantidades" placeholder="Cantidad" min="1">
                     </div>
                 </div>
@@ -72,7 +84,13 @@
             <button type="submit" class="btn btn-primary">Comprar</button>
         </form>
     </div>
-
+	
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
+		</div>
+	</footer>
+	
     <!-- Bootstrap core JavaScript -->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
