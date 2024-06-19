@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> {
                 	auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
                             "/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**", "/login").permitAll();
-                    auth.requestMatchers("/stock/alta", "/producto").hasRole("ADMIN");
+                    auth.requestMatchers("/stock/alta", "/producto","informe/informes1").hasRole("ADMIN");
                     auth.requestMatchers("/compras/**").hasAnyRole("ADMIN", "CLIENTE");
                     auth.anyRequest().authenticated();
                 })
