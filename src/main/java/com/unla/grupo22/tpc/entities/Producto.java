@@ -30,11 +30,13 @@ public class Producto {
 	@Column(name="descripcion", nullable=false, length=150)
 	private String descripcion;
 	
+	@Column(name = "costo")
 	private int costo;
 	
+	@Column(name = "precio_de_venta")
 	private int precioDeVenta;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "producto", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "producto", cascade = CascadeType.ALL)
     private StockProducto stockProducto;
 
 	public Producto(String codigo, String nombre, String descripcion, int costo, int precioDeVenta,
