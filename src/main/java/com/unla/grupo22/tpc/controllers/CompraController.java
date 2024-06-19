@@ -65,11 +65,5 @@ public class CompraController {
 	    redirectAttributes.addFlashAttribute("success", "Compra realizada con éxito");
 	    return "redirect:/compras/nueva";
 	}
-
-
-
-
-
-
 	
 }

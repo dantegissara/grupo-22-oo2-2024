@@ -37,7 +37,6 @@ public class StockController {
 	
 	@GetMapping("/alta")
     public String mostrarFormularioAlta(Model model) {
-        // Puedes añadir datos al modelo si es necesario
         return "stock/altaLote";
     }
 	
@@ -81,7 +80,7 @@ public class StockController {
             StockProducto nuevoStockProducto = new StockProducto();
             nuevoStockProducto.setProducto(producto);
             nuevoStockProducto.setCantidad(cantidadRecibida);
-            nuevoStockProducto.setMinimoStock(0); // Ajustar según tus necesidades
+            nuevoStockProducto.setMinimoStock(0); 
             stockProductoService.guardar(nuevoStockProducto); // Método de servicio para guardar StockProducto
         }
         

@@ -1,5 +1,6 @@
 package com.unla.grupo22.tpc.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.unla.grupo22.tpc.entities.Producto;
@@ -13,5 +14,5 @@ public interface IStockProductoService {
 
     StockProducto actualizar(StockProducto stockProducto);
 
-	
+    List<StockProducto> obtenerTodosLosProductos();
 }

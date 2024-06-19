@@ -4,8 +4,11 @@ import com.unla.grupo22.tpc.entities.Producto;
 import com.unla.grupo22.tpc.entities.StockProducto;
 import com.unla.grupo22.tpc.repositories.IStockProductoRepository;
 import com.unla.grupo22.tpc.service.IStockProductoService;
+
+import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 @Service("stockProductoService")
@@ -15,6 +18,12 @@ public class StockProductoImpl implements IStockProductoService {
     
     public StockProductoImpl(IStockProductoRepository stockProductoRepository) {
         this.stockProductoRepository = stockProductoRepository;
+    }
+    
+    @Override
+    public List<StockProducto> obtenerTodosLosProductos() {
+    
+        return stockProductoRepository.findAll();
     }
     
     @Override
