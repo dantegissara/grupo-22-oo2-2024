@@ -33,9 +33,5 @@ public class StockProducto {
 		this.cantidad = cantidad;
 		this.minimoStock = minimoStock;
 	}
-	
-	
-	
-
 
 }

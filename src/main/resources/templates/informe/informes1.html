@@ -5,6 +5,19 @@
     <title>Informe de Stock</title>
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+	
+		footer {
+			margin-top: auto;
+		}
+	</style>
+
 </head>
 <body>
     <!-- Navigation -->
@@ -16,25 +29,41 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}"></span></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                            <div class="dropdown-divider"></div>
-                            <form th:action="@{/logout}" method="post">
-                                <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
-                            </form>
-                            <a class="dropdown-item" href="/producto">CRUD Producto</a>
-                            <a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
-                            <a class="dropdown-item" href="/compras/nueva">Comprar</a>
-                        </div>
-                    </li>
+
+					<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">Admin</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+							<a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="/producto">CRUD Producto</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="/informe/informes1">Informes</a> <!-- Listado de informes -->
+					
+						</div>
+					</li>
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}" /></a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+							<a class="dropdown-item" href="/compras/nueva">Comprar</a>
+							<div class="dropdown-divider"></div>
+							<form th:action="@{/logout}" method="post">
+								<input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
+							</form>
+						</div>
+					</li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Page Content -->
-    <div class="container mt-5"> <!-- Agregamos mt-5 aquí -->
+
+    <div class="container" style="margin-top: 80px;"> <!-- Agregamos mt-5 aquí -->
+
         <h1 class="my-4">Informe de Stock de Productos</h1>
 
         <table class="table table-striped">
@@ -62,6 +91,14 @@
             </tbody>
         </table>
     </div>
+
+	
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
+		</div>
+	</footer>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
