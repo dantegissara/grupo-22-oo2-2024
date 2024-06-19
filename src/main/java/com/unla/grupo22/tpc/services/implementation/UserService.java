@@ -70,7 +70,9 @@ public class UserService implements IUserService, UserDetailsService {
     private List<GrantedAuthority> buildGrantedAuthorities(Set<UserRole> userRoles) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (UserRole userRole : userRoles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+            String role = userRole.getRole();
+            System.out.println("Role: " + role); // Añadir log para depuración
+            grantedAuthorities.add(new SimpleGrantedAuthority(role));
         }
         return new ArrayList<>(grantedAuthorities);
     }
