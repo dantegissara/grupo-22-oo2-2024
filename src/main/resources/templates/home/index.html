@@ -10,125 +10,142 @@
 </head>
 <body>
 
-	<!-- Navigation -->
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="/index">INICIO</a>
-			<button aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" data-toggle="collapse" type="button"></button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">Admin</a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
-							<a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="/producto">CRUD Producto</a>
-						</div>
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}" /></a>
-						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-							<a class="dropdown-item" href="/compras/nueva">Comprar</a>
-							<div class="dropdown-divider"></div>
-							<form th:action="@{/logout}" method="post">
-								<input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
-							</form>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<header>
-		<div class="carousel slide" data-ride="carousel" id="carouselExampleIndicators">
-			<ol class="carousel-indicators">
-				<li class="active" data-slide-to="0" data-target="#carouselExampleIndicators">&nbsp;</li>
-				<li data-slide-to="1" data-target="#carouselExampleIndicators">&nbsp;</li>
-				<li data-slide-to="2" data-target="#carouselExampleIndicators">&nbsp;</li>
-			</ol>
-			<div class="carousel-inner" role="listbox">
-				<!-- Slide One - Set the background image for this slide in the line below -->
-				<div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
-					<div class="carousel-caption d-none d-md-block">
-						<h3>First Slide</h3>
-						<p>This is a description for the first slide.</p>
-					</div>
-				</div>
-				<!-- Slide Two - Set the background image for this slide in the line below -->
-				<div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-					<div class="carousel-caption d-none d-md-block">
-						<h3>Second Slide</h3>
-						<p>This is a description for the second slide.</p>
-					</div>
-				</div>
-				<!-- Slide Three - Set the background image for this slide in the line below -->
-				<div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-					<div class="carousel-caption d-none d-md-block">
-						<h3>Third Slide</h3>
-						<p>This is a description for the third slide.</p>
-					</div>
-				</div>
-			</div>
-			<a class="carousel-control-prev" data-slide="prev" href="#carouselExampleIndicators" role="button">
-				<span class="sr-only">Previous</span> 
-			</a>
-			<a class="carousel-control-next" data-slide="next" href="#carouselExampleIndicators" role="button">
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</header>
-	<!-- Page Content -->
-	<div class="container">
-		<h1 class="my-2">Catalogo de productos</h1>
-		<select class="my-4" id="select-producto">
-			<option>...</option> 
-			<option th:each="producto : ${productos}" th:value="${producto.id}">
-				<h1 class="my-2">Codigo : </h1>
-				<p th:text="${producto.codigo}"></p>
-				<h1 class="my-2">Nombre : </h1>
-				<p th:text="${producto.nombre}"></p>
-				<h1 class="my-2">Descripcion : </h1>
-				<p th:text="${producto.descripcion}"></p>
-				<h1 class="my-2">Costo : </h1>
-				<p th:text="${producto.costo}"></p>
-				<h1 class="my-2">Precio De Venta : </h1>
-				<p th:text="${producto.precioDeVenta}"></p>
-				<h1 class="my-2">Stock : </h1>
-				<p th:text="${producto.stockProducto.cantidad}"></p>	
-				<h1 class="my-2">Minimo Stock : </h1>
-				<p th:text="${producto.stockProducto.minimoStock}"></p>		
-			</option>
-		</select>
-		<div id="div-select-producto" class="row"></div>
-	</div>
-	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
-		</div>
-	</footer>
-	<!-- Bootstrap core JavaScript -->
-	<script src="/vendor/jquery/jquery.min.js"></script>
-	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript">
-		$("#select-producto").change(function() {
-			var productoId = $("#select-producto").val();
-			if($.isNumeric(productoId)){
-				$.ajax({
-					method: "GET",
-				 	url: "/producto/partial/" + productoId,
-				})
-				.done(function(result) {
-					$("#div-select-producto").html(result);
-				})
-				.fail(function() {
-					alert("error");
-				});
-			}else $("#div-select-producto").html("");
-		});
-	</script>
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/index">SuperMercado UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+                        <a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+						<div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/producto">CRUD Producto</a>
+						<div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/informe/informes1">Informes</a> <!-- Listado de informes -->
+                        
+                    </div>
+                </li>
 
-</body>
-</html>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+						<a class="dropdown-item" href="/compras/nueva">Comprar</a>
+						<div class="dropdown-divider"></div>
+                        <form th:action="@{/logout}" method="post">
+                            <input class="dropdown-item" style="cursor: pointer" type="submit" value="Logout"/>
+                        </form>
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active" style="background-image: url('https://img.freepik.com/foto-gratis/buena-mujer-pie-delante-estantes-verduras-eligiendo-que-comprar_342744-1117.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Welcome to SuperMercado UNLa</h3>
+                    <p>Enjoy your shopping experience with us!</p>
+                </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('https://thumbs.dreamstime.com/b/carro-de-la-compra-en-un-supermercado-40320116.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Quality Products</h3>
+                    <p>We offer a wide range of high-quality products for your needs.</p>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('https://img.freepik.com/foto-gratis/carro-compras-lleno-productos-dentro-supermercado_123827-28165.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>Great Deals</h3>
+                    <p>Discover amazing discounts and deals at SuperMercado UNLa!</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</header>
+
+<!-- Page Content -->
+<div class="container mt-5">
+    <h1 class="my-4">Catalogo de productos</h1>
+    <select class="my-4" id="select-producto">
+        <option>...</option>
+        <option th:each="producto : ${productos}" th:value="${producto.id}">
+            <h1 class="my-2">Codigo : </h1>
+            <p th:text="${producto.codigo}
+			"></p>
+			            <h1 class="my-2">Nombre : </h1>
+			            <p th:text="${producto.nombre}"></p>
+			            <h1 class="my-2">Descripcion : </h1>
+			            <p th:text="${producto.descripcion}"></p>
+			            <h1 class="my-2">Costo : </h1>
+			            <p th:text="${producto.costo}"></p>
+			            <h1 class="my-2">Precio De Venta : </h1>
+			            <p th:text="${producto.precioDeVenta}"></p>
+			            <h1 class="my-2">Stock : </h1>
+			            <p th:text="${producto.stockProducto.cantidad}"></p>
+			            <h1 class="my-2">Minimo Stock : </h1>
+			            <p th:text="${producto.stockProducto.minimoStock}"></p>
+			        </option>
+			    </select>
+			    <div id="div-select-producto" class="row"></div>
+			</div>
+
+			<!-- Footer -->
+			<footer class="py-5 bg-dark">
+			    <div class="container">
+			        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p>
+			    </div>
+			    <!-- /.container -->
+			</footer>
+
+			<!-- Bootstrap core JavaScript -->
+			<script src="/vendor/jquery/jquery.min.js"></script>
+			<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<script type="text/javascript">
+			    $("#select-producto").change(function() {
+			        var productoId = $("#select-producto").val();
+			        if($.isNumeric(productoId)){
+			            $.ajax({
+			                method: "GET",
+			                url: "/producto/partial/" + productoId,
+			            })
+			            .done(function(result) {
+			                $("#div-select-producto").html(result);
+			            })
+			            .fail(function() {
+			                alert("error");
+			            });
+			        } else $("#div-select-producto").html("");
+			    });
+			</script>
+
+			</body>
+			</html>
