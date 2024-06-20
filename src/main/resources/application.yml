@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    url: jdbc:mysql://localhost/grupo22stock
+    username: root
+    password: root
   jpa:
     show-sql: true
     hibernate:
