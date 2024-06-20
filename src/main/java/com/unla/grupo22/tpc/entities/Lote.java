@@ -42,7 +42,4 @@ public class Lote {
 		this.proveedor = proveedor;
 		this.precioDeCompra = precioDeCompra;
 	}
-	
-	
-
 }

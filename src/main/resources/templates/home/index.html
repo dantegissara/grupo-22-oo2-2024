@@ -7,6 +7,22 @@
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/css/modern-business.css" rel="stylesheet">
+
+    <style>
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 30px;
+            width: 100%;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        #lowStockAlert .navbar-text {
+            color: black;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -25,9 +41,9 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
                         <a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
-						<div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/producto">CRUD Producto</a>
-						<div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/informe/informes1">Informes</a> <!-- Listado de informes -->
                         
                     </div>
@@ -37,8 +53,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}"></span></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-						<a class="dropdown-item" href="/compras/nueva">Comprar</a>
-						<div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/compras/nueva">Comprar</a>
+                        <div class="dropdown-divider"></div>
                         <form th:action="@{/logout}" method="post">
                             <input class="dropdown-item" style="cursor: pointer" type="submit" value="Logout"/>
                         </form>
@@ -60,21 +76,27 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <!-- Slide One - Set the background image for this slide in the line below -->
-            <div class="carousel-item active" style="background-image: url('https://img.freepik.com/foto-gratis/buena-mujer-pie-delante-estantes-verduras-eligiendo-que-comprar_342744-1117.jpg')">
+
+            <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+
                 <div class="carousel-caption d-none d-md-block">
                     <h3>Bienvenido a SuperMercado UNLa</h3>
                     <p>Disfruta de tu experiencia comprando!</p>
                 </div>
             </div>
             <!-- Slide Two - Set the background image for this slide in the line below -->
-            <div class="carousel-item" style="background-image: url('https://thumbs.dreamstime.com/b/carro-de-la-compra-en-un-supermercado-40320116.jpg')">
+
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+
                 <div class="carousel-caption d-none d-md-block">
                     <h3>Productos de calidad</h3>
                     <p>Ofrecemos un gran rango de productos para tu bienestar.</p>
                 </div>
             </div>
             <!-- Slide Three - Set the background image for this slide in the line below -->
-            <div class="carousel-item" style="background-image: url('https://img.freepik.com/foto-gratis/carro-compras-lleno-productos-dentro-supermercado_123827-28165.jpg')">
+
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1585939049495-7f87cd649405?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+
                 <div class="carousel-caption d-none d-md-block">
                     <h3>Buenos Tratos</h3>
                     <p>Grandes descuentos y tratos en SuperMercado UNLa!</p>
@@ -100,52 +122,79 @@
         <option th:each="producto : ${productos}" th:value="${producto.id}">
             <h1 class="my-2">Codigo : </h1>
             <p th:text="${producto.codigo}
-			"></p>
-			            <h1 class="my-2">Nombre : </h1>
-			            <p th:text="${producto.nombre}"></p>
-			            <h1 class="my-2">Descripcion : </h1>
-			            <p th:text="${producto.descripcion}"></p>
-			            <h1 class="my-2">Costo : </h1>
-			            <p th:text="${producto.costo}"></p>
-			            <h1 class="my-2">Precio De Venta : </h1>
-			            <p th:text="${producto.precioDeVenta}"></p>
-			            <h1 class="my-2">Stock : </h1>
-			            <p th:text="${producto.stockProducto.cantidad}"></p>
-			            <h1 class="my-2">Minimo Stock : </h1>
-			            <p th:text="${producto.stockProducto.minimoStock}"></p>
-			        </option>
-			    </select>
-			    <div id="div-select-producto" class="row"></div>
-			</div>
+            "></p>
+                        <h1 class="my-2">Nombre : </h1>
+                        <p th:text="${producto.nombre}"></p>
+                        <h1 class="my-2">Descripcion : </h1>
+                        <p th:text="${producto.descripcion}"></p>
+                        <h1 class="my-2">Costo : </h1>
+                        <p th:text="${producto.costo}"></p>
+                        <h1 class="my-2">Precio De Venta : </h1>
+                        <p th:text="${producto.precioDeVenta}"></p>
+                        <h1 class="my-2">Stock : </h1>
+                        <p th:text="${producto.stockProducto.cantidad}"></p>
+                        <h1 class="my-2">Minimo Stock : </h1>
+                        <p th:text="${producto.stockProducto.minimoStock}"></p>
+                    </option>
+                </select>
+                <div id="div-select-producto" class="row"></div>
+            </div>
 
-			<!-- Footer -->
-			<footer class="py-5 bg-dark">
-			    <div class="container">
-			        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p>
-			    </div>
-			    <!-- /.container -->
-			</footer>
+            <!-- Alerta de bajo stock -->
+                <div id="lowStockAlert" class="navbar navbar-dark bg-warning fixed-bottom d-none">
+                    <div class="container">
+                        <span class="navbar-text">!!PRODUCTOS CON BAJO STOCK!!!!!</span>
+                        <a class="btn btn-outline-dark ml-2" href="/alerta/bajoStockPage">Ver detalles</a>
+                    </div>
+                </div>
+            <!-- Footer -->
+            <footer class="py-5 bg-dark">
+                <div class="container">
 
-			<!-- Bootstrap core JavaScript -->
-			<script src="/vendor/jquery/jquery.min.js"></script>
-			<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-			<script type="text/javascript">
-			    $("#select-producto").change(function() {
-			        var productoId = $("#select-producto").val();
-			        if($.isNumeric(productoId)){
-			            $.ajax({
-			                method: "GET",
-			                url: "/producto/partial/" + productoId,
-			            })
-			            .done(function(result) {
-			                $("#div-select-producto").html(result);
-			            })
-			            .fail(function() {
-			                alert("error");
-			            });
-			        } else $("#div-select-producto").html("");
-			    });
-			</script>
+                    <p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
 
-			</body>
-			</html>
+                </div>
+                <!-- /.container -->
+            </footer>
+
+            <!-- Bootstrap core JavaScript -->
+            <script src="/vendor/jquery/jquery.min.js"></script>
+            <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    // Manejo del cambio en el select de productos
+                    $("#select-producto").change(function() {
+                        var productoId = $("#select-producto").val();
+                        if ($.isNumeric(productoId)) {
+                            $.ajax({
+                                method: "GET",
+                                url: "/producto/partial/" + productoId,
+                            })
+                            .done(function(result) {
+                                $("#div-select-producto").html(result);
+                            })
+                            .fail(function() {
+                                alert("error");
+                            });
+                        } else {
+                            $("#div-select-producto").html("");
+                        }
+                    });
+
+                    // Verificación de productos con bajo stock
+                    $.ajax({
+                        method: "GET",
+                        url: "/alerta/tieneBajoStock",
+                        success: function(response) {
+                            if (response) {
+                                $('#lowStockAlert').removeClass('d-none');
+                            }
+                        },
+                        error: function() {
+                            console.error("Error al verificar productos con bajo stock.");
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>
