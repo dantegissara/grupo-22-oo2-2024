@@ -1,14 +1,20 @@
 package com.unla.grupo22.tpc.controllers;
 
 
+
+
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -17,6 +23,8 @@ import com.unla.grupo22.tpc.helpers.ViewRouteHelper;
 import com.unla.grupo22.tpc.entities.Producto;
 import com.unla.grupo22.tpc.entities.StockProducto;
 import com.unla.grupo22.tpc.services.implementation.ProductoService;
+
+
 
 @Controller
 @RequestMapping("/producto")
@@ -98,6 +106,19 @@ public class ProductoController {
 		return new RedirectView(ViewRouteHelper.PRODUCTO_ROOT);
 	}
 	
+	
+	 @GetMapping("/producto/partial/{productoId}")
+	    public String getProductoPartial(@PathVariable int productoId, Model model) {
+	        Optional<Producto> producto = productoService.findById(productoId);
+	        if (producto.isPresent()) {
+	            model.addAttribute("producto", producto.get());
+	            return "fragments/productoDetalle :: producto";
+	        } else {
+	            return "error";
+	        }
+	    }
+
+
 
 
 }

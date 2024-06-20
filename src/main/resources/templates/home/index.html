@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>SuperMercado UNLa</title>
-    <!-- Bootstrap core CSS -->
+    <meta charset="UTF-8">
+    <title>Home</title>
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
     <link href="/css/modern-business.css" rel="stylesheet">
 
 	<style>
@@ -22,13 +20,13 @@
 
 </head>
 <body>
-
-<!-- Navigation -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/index">SuperMercado UNLa</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index">SuperMercado UNLa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -98,44 +96,24 @@
                     <h3>Buenos Tratos</h3>
                     <p>Grandes descuentos y tratos en SuperMercado UNLa!</p>
                 </div>
+
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</header>
+    </nav>
 
-<!-- Page Content -->
-<div class="container mt-5">
-    <h1 class="my-4">Catalogo de productos</h1>
-    <select class="my-4" id="select-producto">
-        <option>...</option>
-        <option th:each="producto : ${productos}" th:value="${producto.id}">
-            <h1 class="my-2">Codigo : </h1>
-            <p th:text="${producto.codigo}
-			"></p>
-			            <h1 class="my-2">Nombre : </h1>
-			            <p th:text="${producto.nombre}"></p>
-			            <h1 class="my-2">Descripcion : </h1>
-			            <p th:text="${producto.descripcion}"></p>
-			            <h1 class="my-2">Costo : </h1>
-			            <p th:text="${producto.costo}"></p>
-			            <h1 class="my-2">Precio De Venta : </h1>
-			            <p th:text="${producto.precioDeVenta}"></p>
-			            <h1 class="my-2">Stock : </h1>
-			            <p th:text="${producto.stockProducto.cantidad}"></p>
-			            <h1 class="my-2">Minimo Stock : </h1>
-			            <p th:text="${producto.stockProducto.minimoStock}"></p>
-			        </option>
-			    </select>
-			    <div id="div-select-producto" class="row"></div>
-			</div>
+    <!-- Page Content -->
+    <div class="container mt-5">
+        <h1 class="my-4">Bienvenido al SuperMercado UNLa</h1>
+    </div>
+
+    <!-- Alerta de bajo stock -->
+    <div id="lowStockAlert" class="navbar navbar-dark bg-warning fixed-bottom d-none">
+        <div class="container">
+            <span class="navbar-text">Productos con poco stock</span>
+            <a class="btn btn-outline-dark ml-2" href="/alerta/bajoStockPage">Ver detalles</a>
+        </div>
+    </div>
+
 
 			<!-- Footer -->
 			<footer class="py-5 bg-dark">
@@ -147,26 +125,25 @@
 			    <!-- /.container -->
 			</footer>
 
-			<!-- Bootstrap core JavaScript -->
-			<script src="/vendor/jquery/jquery.min.js"></script>
-			<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-			<script type="text/javascript">
-			    $("#select-producto").change(function() {
-			        var productoId = $("#select-producto").val();
-			        if($.isNumeric(productoId)){
-			            $.ajax({
-			                method: "GET",
-			                url: "/producto/partial/" + productoId,
-			            })
-			            .done(function(result) {
-			                $("#div-select-producto").html(result);
-			            })
-			            .fail(function() {
-			                alert("error");
-			            });
-			        } else $("#div-select-producto").html("");
-			    });
-			</script>
 
-			</body>
-			</html>
+    <!-- JavaScript para verificar si hay productos con bajo stock -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                method: "GET",
+                url: "/alerta/tieneBajoStock",
+                success: function(response) {
+                    if (response) {
+                        $('#lowStockAlert').removeClass('d-none');
+                    }
+                },
+                error: function() {
+                    console.error("Error al verificar productos con bajo stock.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
