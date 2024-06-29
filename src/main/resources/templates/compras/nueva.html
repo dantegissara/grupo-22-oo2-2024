@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Realizar Compra</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/css/modern-business.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+    </style>
+    <script>
+        function toggleCantidadInput(checkbox) {
+            var cantidadInput = checkbox.parentNode.querySelector('input[type="number"]');
+            if (checkbox.checked) {
+                cantidadInput.disabled = false;
+            } else {
+                cantidadInput.disabled = true;
+                cantidadInput.value = ""; // Clear the value when checkbox is unchecked
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index">INICIO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+                            <a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+                            <a class="dropdown-item" href="/producto">CRUD Producto</a>
+                            <a class="dropdown-item" href="/informes1">Informes de Stock</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User <span th:text="${username}"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownUser">
+                            <a class="dropdown-item" href="/compras/nueva">Comprar</a>
+                            <form th:action="@{/logout}" method="post">
+                                <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container my-5">
+        <h1 class="my-4">Realizar Compra</h1>
+
+        <!-- Mensaje de éxito -->
+        <div th:if="${success}" class="alert alert-success" role="alert">
+            <p th:text="${success}"></p>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div th:if="${error}" class="alert alert-danger" role="alert">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form action="/compras/realizar" method="post">
+            <div class="form-group">
+                <label for="userId">User ID:</label>
+                <input type="number" class="form-control" id="userId" name="userId" required>
+            </div>
+            <div class="form-group">
+                <label>Productos:</label>
+                <div th:each="producto, iterStat : ${productos}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="producto${producto.id}" name="productosIds" th:value="${producto.id}" 
+                            onclick="toggleCantidadInput(this)">
+                        <label class="form-check-label" th:for="'producto' + ${producto.id}">
+                            <span th:text="${producto.nombre}"></span> - <span th:text="${producto.costo}"></span> ARS c/u
+                        </label>
+                        <input type="number" class="form-control mt-1" id="cantidad${producto.id}" name="cantidades" placeholder="Cantidad" min="1" disabled>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Comprar</button>
+        </form>
+    </div>
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

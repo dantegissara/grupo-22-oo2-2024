@@ -1,5 +1,6 @@
 package com.unla.grupo22.tpc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unla.grupo22.tpc.entities.StockProducto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -30,11 +31,14 @@ public class Producto {
 	@Column(name="descripcion", nullable=false, length=150)
 	private String descripcion;
 	
+	@Column(name = "costo")
 	private int costo;
 	
+	@Column(name = "precio_de_venta")
 	private int precioDeVenta;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "producto", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "producto", cascade = CascadeType.ALL)
+	 @JsonIgnoreProperties("producto") // Ignore the "producto" field in StockProducto
     private StockProducto stockProducto;
 
 	public Producto(String codigo, String nombre, String descripcion, int costo, int precioDeVenta,

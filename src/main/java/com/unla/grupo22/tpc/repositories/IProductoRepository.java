@@ -9,8 +9,6 @@ import com.unla.grupo22.tpc.entities.Producto;
 @Repository("productoRepository")
 public interface IProductoRepository extends JpaRepository<Producto, Integer> { // En lugar de Integer colocar Serializable ?
 	
-// find by name ?
-// find by ... ?
-// querys personalizados
+
 
 }

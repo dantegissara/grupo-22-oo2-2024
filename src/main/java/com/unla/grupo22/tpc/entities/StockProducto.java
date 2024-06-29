@@ -27,15 +27,13 @@ public class StockProducto {
 	private int cantidad;
 	
 	private int minimoStock;
+	
+	private int cantidadReabastecimiento; 
 
 	public StockProducto(Producto producto, int cantidad, int minimoStock) {
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.minimoStock = minimoStock;
 	}
-	
-	
-	
-
 
 }

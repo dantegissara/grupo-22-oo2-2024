@@ -16,5 +16,7 @@ public interface IProductoService {
     public Optional<Producto> findById(int idProducto);
 
     public List<Producto> getAllProductos();
+    
+    public List<Producto> getProductosBajoStock();
 
 }

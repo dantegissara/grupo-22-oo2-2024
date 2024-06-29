@@ -1,15 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nuevo Producto</title>
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body style="padding-bottom: 50px;">
 
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/index">INICIO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                        <div class="dropdown-divider"></div>
+                        <form th:action="@{/logout}" method="post">
+                            <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<form action="#" th:action="@{/producto/create}" th:object="${producto}" method="post">
-        <p>Codigo: <input type="text" th:field="*{codigo}" /></p>
-        <p>Nombre: <input type="text" th:field="*{nombre}" /></p>
-        <p>Descripcion: <input type="text" th:field="*{descripcion}" /></p>
-        <p>Costo: <input type="text" th:field="*{costo}" /></p>
-        <p>Precio De Venta: <input type="text" th:field="*{precioDeVenta}" /></p>
-        <p>Stock: <input type="text" th:field="*{stockProducto.cantidad}" /></p>
-        <p>Minimo Stock: <input type="text" th:field="*{stockProducto.minimoStock}" /></p>
-        <input type="submit" value="Crear Nuevo Producto"/>
-    </form>
+<main class="mt-5">
+    <div class="container">
+        <h1 class="my-4">Crear Nuevo Producto</h1>
+        <form action="#" th:action="@{/producto/create}" th:object="${producto}" method="post">
+            <div class="form-group">
+                <label for="codigo">Codigo:</label>
+                <input type="text" class="form-control" id="codigo" th:field="*{codigo}" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripcion:</label>
+                <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required>
+            </div>
+            <div class="form-group">
+                <label for="costo">Costo:</label>
+                <input type="text" class="form-control" id="costo" th:field="*{costo}" required>
+            </div>
+            <div class="form-group">
+                <label for="precioDeVenta">Precio De Venta:</label>
+                <input type="text" class="form-control" id="precioDeVenta" th:field="*{precioDeVenta}" required>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock:</label>
+                <input type="text" class="form-control" id="stock" th:field="*{stockProducto.cantidad}" required>
+            </div>
+            <div class="form-group">
+                <label for="minimoStock">Minimo Stock:</label>
+                <input type="text" class="form-control" id="minimoStock" th:field="*{stockProducto.minimoStock}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Nuevo Producto</button>
+        </form>
+    </div>
+</main>
 
+<footer class="py-6 bg-dark fixed-bottom">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p>
+    </div>
+</footer>
 
-
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

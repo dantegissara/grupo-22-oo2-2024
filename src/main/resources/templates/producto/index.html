@@ -1,62 +1,99 @@
-	<!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <meta charset="UTF-8">
-	    <title>Lista de Productos</title>
-	    <link rel="stylesheet" th:href="@{/css2/styles.css}">
-	</head>
-	<body>
-	    <header>
-	        
-	    </header>
-	
-	    <main>
-	        <h1>Lista de Productos</h1>
-	        <table border="1px">
-	            <thead>
-	                <tr>
-	                    <th>Codigo</th>
-	                    <th>Nombre</th>
-	                    <th>Descripcion</th>
-	                    <th>Costo</th>
-	                    <th>Precio de venta</th>
-	                    <th>Stock</th>
-	                    <th>Minimo Stock</th>
-	                    <th>Acciones</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	                <tr th:each="producto : ${productos}">
-	                    <td><span th:text="${producto.codigo}" /></td>
-	                    <td><span th:text="${producto.nombre}" /></td>
-	                    <td><span th:text="${producto.descripcion}" /></td>
-	                    <td><span th:text="${producto.costo}" /></td>
-	                    <td><span th:text="${producto.precioDeVenta}" /></td>
-	                    <td><span th:text="${producto.stockProducto.cantidad}" /></td>
-	                    <td><span th:text="${producto.stockProducto.minimoStock}" /></td>
-	                    <td>
-	                        <a th:href="@{/producto/{id}(id=${producto.id})}">Editar/Borrar</a>
-	                    </td>
-	                </tr>
-	            </tbody>
-	        </table>
-	        <a href="/producto/new">Crear nuevo producto</a>
-	    </main>
-	
-	    <footer>
-	       
-	    </footer>
-	
-	    <script th:src="@{/js2/scripts.js}"></script>
-	</body>
-	</html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body style="padding-bottom: 50px;">
 
+<!-- Navigation -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/index">INICIO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
 
+				<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Admin</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+						<a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="/producto">CRUD Producto</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="/informe/informes1">Informes</a> <!-- Listado de informes -->
+				
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> User <span th:text="${username}" /></a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+						<a class="dropdown-item" href="/compras/nueva">Comprar</a>
+						<div class="dropdown-divider"></div>
+						<form th:action="@{/logout}" method="post">
+							<input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
+						</form>
+					</div>
+				</li>
 
+            </ul>
+        </div>
+    </div>
+</nav>
 
+<main class="mt-5">
+    <div class="container">
+        <h1 class="my-4">Lista de Productos</h1>
+		
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Costo</th>
+                    <th scope="col">Precio de Venta</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Stock Mínimo</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se incluye el fragmento correctamente -->
+                <tr th:each="producto : ${productos}" th:fragment="productoDetalle">
+                    <td th:text="${producto.codigo}"></td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.descripcion}"></td>
+                    <td th:text="${producto.costo}"></td>
+                    <td th:text="${producto.precioDeVenta}"></td>
+                    <td th:text="${producto.stockProducto.cantidad}"></td>
+                    <td th:text="${producto.stockProducto.minimoStock}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{/producto/{id}(id=${producto.id})}">Editar/Borrar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="/producto/new">Crear Nuevo Producto</a>
+    </div>
+</main>
 
+<footer class="py-5 bg-dark fixed-bottom">
+    <div class="container">
 
+        <p class="m-0 text-center text-white">Copyright &copy; Grupo-22-OO2 2024</p>
 
+    </div>
+</footer>
 
-
-
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

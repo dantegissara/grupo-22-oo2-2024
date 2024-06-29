@@ -1,13 +1,11 @@
 package com.unla.grupo22.tpc.entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,27 +25,21 @@ public class Compra {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCompra;
-
+	@Column(name = "id_compra")
+	private int id;
+	
+	@CreationTimestamp
+	private LocalDateTime fechaCompra;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="producto_id", nullable=false)
-	private Producto producto;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	private int cantidad;
+	@OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    private List<DetalleCompra> detalles;
 
-	private LocalDate fechaCompra;
-
-	public Compra(Producto producto, User user, int cantidad, LocalDate fechaCompra) {
-		super();
-		this.producto = producto;
+	public Compra(User user, List<DetalleCompra> detalles) {
 		this.user = user;
-		this.cantidad = cantidad;
-		this.fechaCompra = fechaCompra;
+		this.detalles = detalles;
 	}
-	
-
 }

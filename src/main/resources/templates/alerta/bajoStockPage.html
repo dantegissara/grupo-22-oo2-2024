@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Productos con Bajo Stock</title>
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/modern-business.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index">INICIO</a>
+            <a class="navbar-brand" href="/index">SuperMercado UNLa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+                            <a class="dropdown-item" href="/stock/alta">Dar de alta Lote</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/producto">CRUD Producto</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/informe/informes1">Informes</a> <!-- Listado de informes -->
+
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> User <span
+                                th:text="${username}" /></a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                            <a class="dropdown-item" href="/compras/nueva">Comprar</a>
+                            <div class="dropdown-divider"></div>
+                            <form th:action="@{/logout}" method="post">
+                                <input class="dropdown-item" type="submit" value="Logout" style="cursor: pointer;">
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container mt-5">
+        <h1 class="my-4">Productos con Bajo Stock</h1>
+        <div id="productosBajoStock" class="row">
+            <!-- Productos con bajo stock se mostrarán aquí -->
+        </div>
+        <!-- Botón para generar pedido de aprovisionamiento -->
+        <div class="text-center my-4">
+            <a href="/stock/alta" class="btn btn-primary">Generar pedido de aprovisionamiento</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript para consumir el JSON -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                method: "GET",
+                url: "/alerta/bajoStock",
+                success: function (productos) {
+                    let productosContainer = $('#productosBajoStock');
+                    productos.forEach(producto => {
+                        productosContainer.append(`
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="card-title">${producto.nombre}</h4>
+                                        <h5>Código: ${producto.codigo}</h5>
+                                        <p class="card-text">Descripción: ${producto.descripcion}</p>
+                                        <p class="card-text">Costo: ${producto.costo}</p>
+                                        <p class="card-text">Precio de Venta: ${producto.precioDeVenta}</p>
+                                        <p class="card-text">Stock: ${producto.stockProducto.cantidad}</p>
+                                        <p class="card-text">Mínimo Stock: ${producto.stockProducto.minimoStock}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                },
+                error: function () {
+                    alert("Error al cargar los productos con bajo stock.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

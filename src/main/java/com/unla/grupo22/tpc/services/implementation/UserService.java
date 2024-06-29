@@ -3,6 +3,7 @@ package com.unla.grupo22.tpc.services.implementation;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -15,16 +16,40 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo22.tpc.entities.UserRole;
 import com.unla.grupo22.tpc.repositories.IUserRepository;
+import com.unla.grupo22.tpc.service.IUserService;
+
 
 @Service("userService")
-public class UserService implements UserDetailsService {
+public class UserService implements IUserService, UserDetailsService {
 
     private IUserRepository userRepository;
 
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    
+    
+    @Override
+    public Optional<com.unla.grupo22.tpc.entities.User> findById(int id) {
+        return userRepository.findById(id);
+    }
 
+    @Override
+    public Optional<com.unla.grupo22.tpc.entities.User> findByUsername(String username) {
+        return Optional.ofNullable(userRepository.findByUsernameAndFetchUserRolesEagerly(username));
+    }
+
+    @Override
+    public com.unla.grupo22.tpc.entities.User save(com.unla.grupo22.tpc.entities.User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void delete(com.unla.grupo22.tpc.entities.User user) {
+        userRepository.delete(user);
+    }
+    
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.unla.grupo22.tpc.entities.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
@@ -45,7 +70,9 @@ public class UserService implements UserDetailsService {
     private List<GrantedAuthority> buildGrantedAuthorities(Set<UserRole> userRoles) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (UserRole userRole : userRoles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+            String role = userRole.getRole();
+            System.out.println("Role: " + role); // Añadir log para depuración
+            grantedAuthorities.add(new SimpleGrantedAuthority(role));
         }
         return new ArrayList<>(grantedAuthorities);
     }
